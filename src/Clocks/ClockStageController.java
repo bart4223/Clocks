@@ -5,14 +5,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ComboBox;
 import javafx.scene.canvas.GraphicsContext;
-
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
-
 import static java.lang.Math.*;
 
 public class ClockStageController implements Initializable {
