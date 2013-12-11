@@ -1,0 +1,19 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ComboBox?>
+
+<AnchorPane id="MainPane" fx:controller="Clocks.ClockStageController" xmlns:fx="http://javafx.com/fxml" >
+    <HBox id="ControlPane" prefHeight="40" minWidth="500" alignment="TOP_LEFT" spacing="10" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: gray;">
+        <padding><Insets top="6" right="10" bottom="6" left="10"/></padding>
+        <ComboBox id="TimeZoneList" prefWidth="480" onAction="#handleComboBox" fx:id="TimeZoneList" />
+    </HBox>
+    <AnchorPane id="BottomPane" prefHeight="560" minWidth="500" xmlns:fx="http://javafx.com/fxml" AnchorPane.bottomAnchor="0">
+        <Canvas id="Layer0" height="500" width="500" AnchorPane.topAnchor="0" fx:id="Layer0" />
+        <Canvas id="Layer1" height="500" width="500" AnchorPane.topAnchor="0" fx:id="Layer1" />
+        <Canvas id="Layer2" height="500" width="500" AnchorPane.topAnchor="0" fx:id="Layer2" />
+        <TextArea id="Log" minWidth="500" text="" prefRowCount="4" wrapText="true" editable="false" AnchorPane.bottomAnchor="0" style="-fx-background-color: lightskyblue; -fx-border-color: gray; -fx-border-width: 3;" fx:id="Log"/>
+    </AnchorPane>
+</AnchorPane>
