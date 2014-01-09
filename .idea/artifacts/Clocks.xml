@@ -15,6 +15,7 @@
       <element id="archive" name="Clocks.jar">
         <element id="module-output" name="Clocks" />
       </element>
+      <element id="artifact" artifact-name="Uniwork" />
     </root>
   </artifact>
 </component>
