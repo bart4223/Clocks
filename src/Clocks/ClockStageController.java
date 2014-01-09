@@ -8,6 +8,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 import static java.lang.Math.*;
@@ -45,18 +48,14 @@ public class ClockStageController implements Initializable {
         TimeZoneList.setValue(Clock.getTimeZone().getID());
     }
 
-    protected void RenderLayer2() {
-        // Innen-Kreis
-        gc2.setStroke(Clock.getColor());
-        gc2.fillOval(Clock.getPosX() + Layer0.getWidth() / 2 - 10, Layer0.getHeight() / 2 - 10 - Clock.getPosY(), 20, 20);
-    }
-
     protected void RenderLayer0() {
         double P1X = 0.0;
         double P1Y = 0.0;
         double P2X = 0.0;
         double P2Y = 0.0;
         int LineWidth = 0;
+        // Löschen
+        gc0.clearRect(0, 0, Layer1.getWidth(), Layer1.getHeight());
         // Aussen-Kreis
         gc0.setStroke(Clock.getColor());
         gc0.setLineWidth(4);
@@ -130,6 +129,18 @@ public class ClockStageController implements Initializable {
         gc1.fillOval(P1X + Layer1.getWidth() / 2 + Clock.getPosX() - 5, P1Y + Layer1.getHeight() / 2 - Clock.getPosY() - 5, 10, 10);
     }
 
+    protected void RenderLayer2() {
+        // Löschen
+        gc2.clearRect(0, 0, Layer1.getWidth(), Layer1.getHeight());
+        // Innen-Kreis
+        gc2.setStroke(Clock.getColor());
+        gc2.fillOval(Clock.getPosX() + Layer0.getWidth() / 2 - 10, Layer0.getHeight() / 2 - 10 - Clock.getPosY(), 20, 20);
+    }
+
+    protected void setLog(String aText) {
+        Log.setText(aText);
+    }
+
     public Clock Clock;
 
     @Override
@@ -144,12 +155,23 @@ public class ClockStageController implements Initializable {
         }
     }
 
-    public void RenderScene() {
+    public void RenderScene(Boolean aComplete) {
+        if (aComplete) {
+            RenderLayer0();
+        }
         RenderLayer1();
+        if (aComplete) {
+            RenderLayer2();
+        }
+        UpdateLog();
     }
 
-    public void setLog(String aText) {
-        Log.setText(aText);
+    protected void UpdateLog() {
+        String str = "The time at \"" + Clock.getTimeZone().getDisplayName() + "\" is ";
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        dateFormat.setTimeZone(Clock.getTimeZone());
+        str = str + dateFormat.format(Calendar.getInstance().getTime());
+        setLog(str);
     }
 
 }

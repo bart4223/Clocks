@@ -1,0 +1,16 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
+
+<?import javafx.scene.control.Button?>
+<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml" fx:controller="Clocks.ClocksControllerStageController">
+    <HBox id="ControlPane" prefHeight="60" alignment="TOP_LEFT" spacing="10" xmlns:fx="http://javafx.com/fxml" >
+        <padding><Insets top="15" right="10" bottom="15" left="10"/></padding>
+        <Button id="btnAdd" prefWidth="100" text="Add" onAction="#handleAddAction" fx:id="btnAdd" />
+        <Button id="btnShow" prefWidth="100" text="Show" onAction="#handleShowAction" fx:id="btnShow" />
+        <Button id="btnClose" prefWidth="100" text="Close" onAction="#handleCloseAction" fx:id="btnClose" />
+        <Button id="btnExit" prefWidth="100" text="Exit" onAction="#handleExitAction" fx:id="btnExit" />
+    </HBox>
+    <TextArea id="TextArea" minWidth="780" text="" prefRowCount="4" wrapText="true" editable="false" AnchorPane.bottomAnchor="0" style="-fx-background-color: darkgray; -fx-border-color: gray; -fx-border-width: 3;" fx:id="TextArea"/>
+</AnchorPane>

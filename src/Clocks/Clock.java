@@ -12,29 +12,19 @@ import java.util.*;
 public class Clock {
 
     protected Timer FTimer;
+    protected Boolean FOwnTick;
     protected TimeZone FTimeZone;
     protected Color FColor;
     protected Color FSecondPointerColor;
     protected int FPosX;
     protected int FPosY;
     protected int FRadius;
-    protected int FMinuteStroke;
-    protected int FHourStroke;
-    protected int FSecondPointerStroke;
-    protected int FMinutePointerStroke;
-    protected int FHourPointerStroke;
     protected Stage FStage;
     protected ClockStageController FStageController;
+    protected Integer FDirection;
 
     protected void DoTick() {
-        FStageController.RenderScene();
-        String str = "Welcome to Clocks...\n";
-        str = str + "The time in \"" + getTimeZone().getID() + "\" is ";
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        dateFormat.setTimeZone(getTimeZone());
-        str = str + dateFormat.format(Calendar.getInstance().getTime()) + "\n";
-        str = str + "\n(C) by Erik Höltmann MMXIII";
-        FStageController.setLog(str);
+        FStageController.RenderScene(false);
     }
 
     protected void CreateStage(){
@@ -45,7 +35,7 @@ public class Clock {
             FStageController = (ClockStageController)lXMLLoader.getController();
             FStageController.Clock = this;
             Parent lRoot = lXMLLoader.getRoot();
-            FStage.setTitle("Clocks");
+            FStage.setTitle("Clock");
             FStage.setScene(new Scene(lRoot, 500, 600, Color.LIGHTSKYBLUE));
             FStage.setResizable(false);
             FStageController.Initialize();
@@ -55,41 +45,53 @@ public class Clock {
         }
     }
 
-    public Clock() {
-        this(TimeZone.getDefault(), Color.BLACK);
+    protected void Finalize() {
+        if (FOwnTick) {
+            FTimer.cancel();
+            FTimer = null;
+        }
+        CloseStage();
     }
 
-    public Clock(TimeZone aTimeZone, Color aColor) {
+    public Clock() {
+        this(true, TimeZone.getDefault(), Color.BLACK);
+    }
+
+    public Clock(Boolean aOwnTick) {
+        this(aOwnTick, TimeZone.getDefault(), Color.BLACK);
+    }
+
+    public Clock(Boolean aOwnTick, TimeZone aTimeZone, Color aColor) {
         FTimeZone = aTimeZone;
         FColor = aColor;
         FSecondPointerColor = Color.RED;
         FPosX = 0;
         FPosY = 0;
         FRadius = 200;
-        FMinuteStroke = 10;
-        FHourStroke = 30;
-        FSecondPointerStroke = 130;
-        FMinutePointerStroke = 150;
-        FHourPointerStroke = 100;
-        FTimer = new Timer();
+        FOwnTick = aOwnTick;
+        if (FOwnTick) {
+            FTimer = new Timer();
+        }
+        FDirection = -1;
     }
 
     public void Initialize() {
         CreateStage();
-        TimerTask lTimerTask = new TimerTask() {
+        if (FOwnTick) {
+            TimerTask lTimerTask = new TimerTask() {
             public void run() {
-                synchronized (this) {
+                    synchronized (this) {
                     DoTick();
-                }
-            }
-        };
-        FTimer.schedule(lTimerTask,100,1000);
+                    }
+                    }
+            };
+            FTimer.schedule(lTimerTask,100,1000);
+        }
+        FStageController.RenderScene(true);
     }
 
-    public void Finalize() {
-        FTimer.cancel();
-        FTimer = null;
-        CloseStage();
+    public void Terminate() {
+        Finalize();
     }
 
     public void ShowStage(){
@@ -153,32 +155,40 @@ public class Clock {
         return FRadius;
     }
 
+    public void setRadius(Integer aRadius) {
+        FRadius = aRadius;
+    }
+
     public int getDiameter() {
         return 2*FRadius;
     }
 
     public int getMinuteStroke() {
-        return FMinuteStroke;
+        return FRadius/20;
     }
 
     public int getHourStroke() {
-        return FHourStroke;
+        return FRadius/7;
     }
 
     public int getSecondPointerStroke() {
-        return FSecondPointerStroke;
+        return FRadius * 130/200;
     }
 
     public int getMinutePointerStroke() {
-        return FMinutePointerStroke;
+        return FRadius * 150/200;
     }
 
     public int getHourPointerStroke() {
-        return FHourPointerStroke;
+        return FRadius/2;
     }
 
     public Stage getStage() {
         return FStage;
+    }
+
+    public void Tick() {
+        DoTick();
     }
 
 }

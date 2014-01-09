@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Clocks.iml" filepath="$PROJECT_DIR$/Clocks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Uniwork/Uniwork.iml" filepath="$PROJECT_DIR$/../Uniwork/Uniwork.iml" />
     </modules>
   </component>
 </project>

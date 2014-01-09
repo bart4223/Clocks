@@ -5,19 +5,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    protected Clock FClock;
+    protected ClocksManager FManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FClock = new Clock();
-        FClock.Initialize();
-        primaryStage = FClock.getStage();
-        FClock.ShowStage();
+        FManager = new ClocksManager(this);
+        FManager.Initialize();
+        primaryStage = FManager.getStage();
+        FManager.ShowController();
     }
 
     @Override
     public void stop() throws Exception {
-        FClock.Finalize();
+        FManager.Finalize();
     }
 
     public static void main(String[] args) {
