@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -133,12 +135,13 @@ public class ClocksManager implements TickListener {
     public String LoadResourceFileContent(String aFilename) {
         String lResult = "";
         try {
-            InputStream lFileStream = new FileInputStream("resources/"+aFilename);
-            if (lFileStream != null) {
-                int lContent;
-                while ((lContent = lFileStream.read()) != -1) {
-                    lResult = lResult + (char)lContent;
-                }
+            File lFile = new File("resources/"+aFilename);
+            if (lFile != null) {
+                FileReader fr = new FileReader(lFile);
+                char[] temp = new char[(int) lFile.length()];
+                fr.read(temp);
+                lResult = new String(temp);
+                fr.close();
             }
         } catch (Exception e) {
         }
