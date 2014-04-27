@@ -1,7 +1,8 @@
 package Clocks;
 
-import Uniwork.Base.TickGenerator;
-import Uniwork.Base.TickListener;
+import Uniwork.Base.NGTickEvent;
+import Uniwork.Base.NGTickGenerator;
+import Uniwork.Base.NGTickListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,19 +11,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ClocksManager implements TickListener {
+public class ClocksManager implements NGTickListener {
 
     protected ArrayList<Clock> FItems;
     protected Main FApplication;
     protected Stage FStage;
     protected ClocksControllerStageController FStageController;
-    protected TickGenerator FTickGenerator;
+    protected NGTickGenerator FTickGenerator;
 
     protected void CreateStage(){
         FStage = new Stage();
@@ -73,7 +72,7 @@ public class ClocksManager implements TickListener {
 
     public ClocksManager(Main aApplication) {
         FItems = new ArrayList<Clock>();
-        FTickGenerator = new TickGenerator();
+        FTickGenerator = new NGTickGenerator();
         FApplication = aApplication;
     }
 
@@ -120,7 +119,7 @@ public class ClocksManager implements TickListener {
     }
 
     @Override
-    public void handleTick(Uniwork.Base.TickEvent e) {
+    public void handleTick(NGTickEvent e) {
         DoTick();
     }
 
