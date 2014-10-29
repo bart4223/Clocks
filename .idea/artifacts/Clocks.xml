@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="Clocks">
+  <artifact type="javafx" build-on-make="true" name="Clocks">
     <output-path>$PROJECT_DIR$/out/artifacts/Clocks</output-path>
     <properties id="javafx-properties">
       <options>
