@@ -14,8 +14,8 @@
     <root id="root">
       <element id="archive" name="Clocks.jar">
         <element id="module-output" name="Clocks" />
+        <element id="module-output" name="Uniwork" />
       </element>
-      <element id="artifact" artifact-name="Uniwork" />
       <element id="directory" name="resources">
         <element id="dir-copy" path="$PROJECT_DIR$/resources" />
       </element>
