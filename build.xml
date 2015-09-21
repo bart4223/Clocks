@@ -295,10 +295,8 @@
   <target name="init.artifacts">
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
     <property name="artifact.output.clocks" value="${basedir}/out/artifacts/Clocks"/>
-    <property name="artifact.output.uniwork" value="${basedir}/out/artifacts/Uniwork"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="artifact.temp.output.Clocks" value="${artifacts.temp.dir}/Clocks.jar"/>
-    <property name="temp.jar.path.Uniwork.jar" value="${artifacts.temp.dir}/Uniwork.jar"/>
     <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.7}/lib/ant-javafx.jar"/>
   </target>
   
@@ -306,13 +304,13 @@
     <delete dir="${artifact.output.clocks}"/>
   </target>
   
-  <target name="artifact.clocks" depends="init.artifacts, compile.module.clocks, artifact.uniwork" description="Build &#39;Clocks&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+  <target name="artifact.clocks" depends="init.artifacts, compile.module.clocks, compile.module.uniwork" description="Build &#39;Clocks&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
     <mkdir dir="${artifact.output.clocks}"/>
     <copy todir="${artifact.temp.output.Clocks}">
       <fileset dir="${clocks.output.dir}"/>
     </copy>
     <copy todir="${artifact.temp.output.Clocks}">
-      <fileset dir="${artifact.temp.output.uniwork}"/>
+      <fileset dir="${uniwork.output.dir}"/>
     </copy>
     <mkdir dir="${artifact.temp.output.Clocks}/resources"/>
     <copy todir="${artifact.temp.output.Clocks}/resources">
@@ -345,20 +343,7 @@
     </delete>
   </target>
   
-  <target name="artifact.uniwork" depends="init.artifacts, compile.module.uniwork" description="Build &#39;Uniwork&#39; artifact">
-    <property name="artifact.temp.output.uniwork" value="${artifacts.temp.dir}/Uniwork"/>
-    <mkdir dir="${artifact.temp.output.uniwork}"/>
-    <jar destfile="${temp.jar.path.Uniwork.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${uniwork.output.dir}"/>
-    </jar>
-    <copy file="${temp.jar.path.Uniwork.jar}" tofile="${artifact.temp.output.uniwork}/Uniwork.jar"/>
-  </target>
-  
-  <target name="build.all.artifacts" depends="artifact.clocks, artifact.uniwork" description="Build all artifacts">
-    <mkdir dir="${artifact.output.uniwork}"/>
-    <copy todir="${artifact.output.uniwork}">
-      <fileset dir="${artifact.temp.output.uniwork}"/>
-    </copy>
+  <target name="build.all.artifacts" depends="artifact.clocks" description="Build all artifacts">
     
     <!-- Delete temporary files -->
     <delete dir="${artifacts.temp.dir}"/>
