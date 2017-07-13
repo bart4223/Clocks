@@ -115,7 +115,7 @@ public class ClockStageController implements Initializable {
         gc1.stroke();
         gc1.closePath();
         // Sekunden-Zeiger
-        i = (Clock.getSecond() * 360 / 60) - 90;
+        i = ((Clock.getSecond() * 1000 + Clock.getMilliSecond()) * 360 / 60000) - 90;
         P1X = cos(i*2*PI/360) * (Clock.getSecondPointerStroke());
         P1Y = sin(i*2*PI/360) * (Clock.getSecondPointerStroke());
         gc1.beginPath();
@@ -168,7 +168,7 @@ public class ClockStageController implements Initializable {
 
     protected void UpdateLog() {
         String str = "The time at \"" + Clock.getTimeZone().getDisplayName() + "\" is ";
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
         dateFormat.setTimeZone(Clock.getTimeZone());
         str = str + dateFormat.format(Calendar.getInstance().getTime());
         setLog(str);

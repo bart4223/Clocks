@@ -42,7 +42,7 @@ public class ClocksManager implements NGTickListener {
 
     protected void InitTickGenerator() {
         FTickGenerator.Initialize();
-        FTickGenerator.NewItem("MAIN",100);
+        FTickGenerator.NewItem("MAIN",10);
         FTickGenerator.addListener("MAIN",this);
         FTickGenerator.SetItemEnabled("MAIN",true);
     }

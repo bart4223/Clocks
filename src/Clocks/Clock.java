@@ -143,6 +143,13 @@ public class Clock {
         return Integer.parseInt(dateFormat.format(cal.getTime()));
     }
 
+    public Integer getMilliSecond() {
+        Calendar cal = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("SSS");
+        dateFormat.setTimeZone(FTimeZone);
+        return Integer.parseInt(dateFormat.format(cal.getTime()));
+    }
+
     public int getPosX() {
         return FPosX;
     }
