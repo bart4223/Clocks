@@ -12,12 +12,12 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ClocksManager implements NGTickListener {
 
-    protected ArrayList<Clock> FItems;
+    protected CopyOnWriteArrayList<Clock> FItems;
     protected Main FApplication;
     protected Stage FStage;
     protected ClocksControllerStageController FStageController;
@@ -71,7 +71,7 @@ public class ClocksManager implements NGTickListener {
     }
 
     public ClocksManager(Main aApplication) {
-        FItems = new ArrayList<Clock>();
+        FItems = new CopyOnWriteArrayList<Clock>();
         FTickGenerator = new NGTickGenerator();
         FApplication = aApplication;
     }
